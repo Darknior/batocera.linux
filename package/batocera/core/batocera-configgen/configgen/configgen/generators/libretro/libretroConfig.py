@@ -28,10 +28,10 @@ ratioIndexes = ["4/3", "16/9", "16/10", "16/15", "21/9", "1/1", "2/1", "3/2", "3
 systemToBluemsx = {'msx': '"MSX2"', 'msx1': '"MSX2"', 'msx2': '"MSX2"', 'colecovision': '"COL - ColecoVision"' };
 
 # Define systems compatible with retroachievements
-systemToRetroachievements = {'atari2600', 'atari7800', 'atarijaguar', 'colecovision', 'nes', 'snes', 'virtualboy', 'n64', 'sg1000', 'mastersystem', 'megadrive', 'segacd', 'sega32x', 'saturn', 'pcengine', 'pcenginecd', 'supergrafx', 'psx', 'mame', 'hbmame', 'fbneo', 'neogeo', 'lightgun', 'apple2', 'lynx', 'wswan', 'wswanc', 'gb', 'gbc', 'gba', 'nds', 'pokemini', 'gamegear', 'ngp', 'ngpc'}; 
+systemToRetroachievements = {'atari2600', 'atari7800', 'atarijaguar', 'colecovision', 'nes', 'snes', 'virtualboy', 'n64', 'sg1000', 'mastersystem', 'megadrive', 'segacd', 'sega32x', 'saturn', 'pcengine', 'pcenginecd', 'supergrafx', 'psx', 'mame', 'fbneo', 'neogeo', 'lightgun', 'apple2', 'lynx', 'wswan', 'wswanc', 'gb', 'gbc', 'gba', 'nds', 'pokemini', 'gamegear', 'ngp', 'ngpc'};
 
 # Define systems NOT compatible with rewind option
-systemNoRewind = {'sega32x', 'psx', 'zxspectrum', 'hbmame', 'n64', 'dreamcast', 'atomiswave', 'naomi', 'saturn'};
+systemNoRewind = {'sega32x', 'psx', 'zxspectrum', 'n64', 'dreamcast', 'atomiswave', 'naomi', 'saturn'};
 # 'odyssey2', 'mame', 'neogeocd', 'fbneo'
 
 # Define systems NOT compatible with run-ahead option (warning: this option is CPU intensive!)
@@ -85,6 +85,7 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution):
     retroarchConfig['quit_press_twice'] = 'false'               # not aligned behavior on other emus
     retroarchConfig['menu_show_restart_retroarch'] = 'false'    # this option messes everything up on Batocera if ever clicked
     retroarchConfig['video_driver'] = '"gl"'                    # needed for the ozone menu
+    retroarchConfig['video_refresh_rate'] = '0'                 # force video to 0, otherwise, it is set to 60 and it causes issues if the resolution changed for batocera is not 60hz (drm)
 
     if system.isOptSet("display.rotate"):
         # 0 => 0 ; 1 => 270; 2 => 180 ; 3 => 90
@@ -324,9 +325,9 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution):
           if system.isOptSet('secondinstance') and system.getOptBoolean('secondinstance') == True:
               retroarchConfig['run_ahead_secondary_instance'] = 'true'
 
-    if system.isOptSet("retroachievements_sound") and system.config["retroachievements_sound"] != "none":
+    if system.isOptSet("retroachievements.sound") and system.config["retroachievements.sound"] != "none":
         retroarchConfig['cheevos_unlock_sound_enable'] = 'true'
-        retroarchConfig['cheevos_unlock_sound'] = system.config["retroachievements_sound"]
+        retroarchConfig['cheevos_unlock_sound'] = system.config["retroachievements.sound"]
     else:
         retroarchConfig['cheevos_unlock_sound_enable'] = 'false'
 
@@ -416,7 +417,7 @@ def createLibretroConfig(system, controllers, rom, bezel, gameResolution):
             else:
                 retroarchConfig['netplay_spectate_password'] = ""
         else:
-            retroarchConfig['netplay_start_as_spectator'] = "false"            
+            retroarchConfig['netplay_start_as_spectator'] = "false"
 
          # Netplay host passwords
         if system.config['netplay.mode'] == 'host':

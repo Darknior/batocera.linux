@@ -1,8 +1,0 @@
-dos:
-  emulator: dosbox
-  core:     dosbox
-psp:
-  options:
-    frameskip: 1
-    frameskiptype: 2
-    internalresolution: 2
