@@ -92,6 +92,9 @@ def generateControllerConfig(controller, retroarchspecials, system):
     retroarchGunbtns = {'a': 'aux_a', 'b': 'aux_b', 'y': 'aux_c', \
                         'pageup': 'offscreen_shot', 'pagedown': 'trigger', \
                         'start': 'start', 'select': 'select'}
+    retroarchWiibarbtns = {'a': 'aux_a', 'b': 'aux_b', 'y': 'aux_c', \
+                        '2': 'offscreen_shot', '1': 'trigger', \
+                        'enter': 'start', 'escape': 'select'}
 
     # Some input adaptations for some cores...
     # Z is important, in case l2 (z) is not available for this pad, use l1
